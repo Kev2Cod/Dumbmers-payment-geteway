@@ -1,0 +1,47 @@
+.polygon-icon{
+    width: 24px;
+    height: 24px;
+    position: relative;
+}
+
+.chat-span{
+  max-width: 60%;
+  text-align:start;
+  color: white !important;
+}
+
+.container-chat{
+  height: 75vh;
+  overflow-y: auto;
+}
+
+.chat-overflow{
+  display: flex;
+  align-items:flex-end;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 1px ; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #464646; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #575757; 
+}
+
+@media only screen and (max-width:768px) {
+
+}
