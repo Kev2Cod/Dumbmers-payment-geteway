@@ -3,7 +3,7 @@ const { product, user, category, productCategory } = require("../../models");
 // ============== GET PRODUCTS ===============
 exports.getProduct = async (req, res) => {
   try {
-    let products = await product.findAll({
+    let data = await product.findAll({
       include: [
         {
           model: user,
@@ -25,26 +25,24 @@ exports.getProduct = async (req, res) => {
         },
       ],
       attributes: {
-        exclude: ["idUser","createdAt", "updatedAt"],
+        exclude: ["idUser", "createdAt", "updatedAt"],
       },
     });
 
-    products = JSON.parse(JSON.stringify(products))
+    data = JSON.parse(JSON.stringify(data));
 
     // Map
-    products = products.map((item)=>{
-      return{
+    data = data.map((item) => {
+      return {
         ...item,
-        image: process.env.FILE_PATH + item.image
-      }
-    })
+        image: process.env.FILE_PATH + item.image,
+      };
+    });
 
     res.status(200).send({
       status: "Success",
       message: "Get data all product success",
-      data: {
-        products: products,
-      },
+      data,
     });
   } catch (error) {
     console.log(error);
@@ -58,41 +56,35 @@ exports.getProduct = async (req, res) => {
 // ============== ADD PRODUCTS ===============
 exports.addProduct = async (req, res) => {
   try {
-    const newProduct = req.body;
-    let products = await product.create({
-      ...newProduct,
+    let { categoryId } = req.body;
+
+    if (categoryId) {
+      categoryId = categoryId.split(',');
+    }
+
+    const data = {
+      name: req.body.name,
+      desc: req.body.desc,
+      price: req.body.price,
       image: req.file.filename,
-      idUser: req.user.id, // diambil dari token
-    });
-
-    products = JSON.parse(JSON.stringify(products));
-
-    products = {
-      ...products,
-      image: process.env.FILE_PATH + products.image,
+      qty: req.body.qty,
+      idUser: req.user.id,
     };
 
-    res.status(200).send({
-      status: "Success",
-      message: "Add Product Success",
-      data: products,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send({
-      status: "Add Product Failed",
-      message: "Server Error",
-    });
-  }
-};
+    let newProduct = await product.create(data);
 
-// ============ GET DETAIL PRODUCT ========
-exports.getDetailProduct = async (req, res) => {
-  const { id } = req.params;
+    if (categoryId) {
+      const productCategoryData = categoryId.map((item) => {
+        return { idProduct: newProduct.id, idCategory: parseInt(item) };
+      });
 
-  try {
+      await productCategory.bulkCreate(productCategoryData);
+    }
+
     let products = await product.findOne({
-      where: { id },
+      where: {
+        id: newProduct.id,
+      },
       include: [
         {
           model: user,
@@ -120,17 +112,66 @@ exports.getDetailProduct = async (req, res) => {
 
     products = JSON.parse(JSON.stringify(products));
 
-    products = {
-      ...products,
-      image:  process.env.FILE_PATH + products.image
-    }
+    res.status(200).send({
+      status: "Success",
+      message: "Add Product Success",
+      data: {
+        ...products,
+        image: process.env.FILE_PATH + products.image,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      status: "Add Product Failed",
+      message: "Server Error",
+    });
+  }
+};
+
+// ============ GET DETAIL PRODUCT ========
+exports.getDetailProduct = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    let data = await product.findOne({
+      where: { id },
+      include: [
+        {
+          model: user,
+          as: "seller",
+          attributes: {
+            exclude: ["password", "createdAt", "updatedAt"],
+          },
+        },
+        {
+          model: category,
+          as: "categories",
+          through: {
+            model: productCategory,
+            as: "bridge",
+          },
+          attributes: {
+            exclude: ["idUser", "createdAt", "updatedAt"],
+          },
+        },
+      ],
+      attributes: {
+        exclude: ["idUser", "createdAt", "updatedAt"],
+      },
+    });
+
+    data = JSON.parse(JSON.stringify(data));
+
+    data = {
+      ...data,
+      image: process.env.FILE_PATH + data.image,
+    };
 
     res.status(200).send({
       status: "Success",
       message: `Get detail product: ${id} success`,
-      data: {
-        products: products,
-      },
+      data
     });
   } catch (error) {
     console.log(error);
@@ -146,7 +187,7 @@ exports.updateProduct = async (req, res) => {
   const { id } = req.params;
   try {
     const data = req.body;
-    console.log(data)
+    console.log(data);
     let updateProduct = await product.update(
       {
         ...data,
@@ -193,7 +234,7 @@ exports.deleteProduct = async (req, res) => {
       message: `Delete product: ${id} success`,
       data: {
         products: {
-          id: { id }
+          id: { id },
         },
       },
     });
@@ -205,4 +246,3 @@ exports.deleteProduct = async (req, res) => {
     });
   }
 };
-

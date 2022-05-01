@@ -1,12 +1,14 @@
 import Auth from "./Auth";
-import Home from "./Home";
+import Product from "./Product";
 import ProfilePage from "./ProfilePage";
 import DetailProduct from "./DetailProduct";
-import ListCategory from "./ListCategory";
-import ListProduct from "./ListProduct";
-import EditCategory from "./EditCategory";
-import EditProduct from "./EditProduct";
+import CategoryAdmin from "./CategoryAdmin";
+import ProductAdmin from "./ProductAdmin";
+import AddCategoryAdmin from "./AddCategoryAdmin";
+import AddProductAdmin from "./AddProductAdmin";
+import UpdateCategoryAdmin from "./UpdateCategoryAdmin";
+import UpdateProductAdmin from "./UpdateProductAdmin";
 import Complain from "./Complain";
 import ComplainAdmin from "./ComplainAdmin";
 
-export { Auth, Home, ProfilePage, DetailProduct, ListCategory, ListProduct, Complain, ComplainAdmin, EditCategory, EditProduct}  
+export { Auth, Product, ProfilePage, DetailProduct, CategoryAdmin, ProductAdmin, Complain, ComplainAdmin,AddCategoryAdmin, AddProductAdmin, UpdateCategoryAdmin, UpdateProductAdmin}  

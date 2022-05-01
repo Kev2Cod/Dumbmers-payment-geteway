@@ -13,6 +13,7 @@ const { addProfile } = require("../controllers/profile")
 
 // Users 
 router.get('/users', getUsers)
+router.get('/user/:id', getUser)
 
 // Products
 router.get("/products", getProduct);

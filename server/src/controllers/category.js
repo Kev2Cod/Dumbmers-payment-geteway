@@ -12,9 +12,7 @@ exports.getCategory = async (req, res) => {
         res.status(200).send({
             status: "Success",
             message: "Get all category success",
-            data: {
-                categories
-            },
+            categories,
         });
     } catch (error) {
         console.log(error);

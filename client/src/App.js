@@ -6,7 +6,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { UserContext } from "./context/userContext";
 
 import Navbar from "./components/Navbar";
-import { Auth, Home, ProfilePage, DetailProduct, ListCategory, ListProduct, Complain, ComplainAdmin, EditCategory, EditProduct } from "./pages";
+import { Auth, Product, ProfilePage, DetailProduct, CategoryAdmin, ProductAdmin, Complain, ComplainAdmin,AddCategoryAdmin, AddProductAdmin, UpdateCategoryAdmin, UpdateProductAdmin} from "./pages";
 import PrivateRoute from "./components/PrivateRoute";
 import { Error } from "./pages/Error";
 
@@ -20,7 +20,6 @@ function App() {
   const navigate = useNavigate();
   // Init user context
   const [state, dispatch] = useContext(UserContext);
-  console.log("Dari State : ", state);
 
   useEffect(() => {
     // Redirect Auth
@@ -29,7 +28,7 @@ function App() {
     } else {
       if (state.user.status === "admin") {
         navigate("/complain-admin");
-      } else if (state.user.status === "customer") {
+      } else if (state.user.status === "customers") {
         navigate("/");
       }
     }
@@ -37,7 +36,7 @@ function App() {
 
   // Create function for "check user token"
   const checkUser = async () => {
-    try {
+    try { 
       const response = await API.get("/check-auth");
 
       // If the token incorrect
@@ -70,26 +69,26 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar />
-
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Product />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/detail-product/:id" element={<DetailProduct />} />
         <Route path="*" element={<Error />} />
 
         <Route path="/" element={<PrivateRoute />}>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Product />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/profile-page" element={<ProfilePage />} />
-          <Route path="/list-category" element={<ListCategory />} />
-          <Route path="/list-product" element={<ListProduct />} />
+          <Route path="/category-admin" element={<CategoryAdmin />} />
+          <Route path="/product-admin" element={<ProductAdmin />} />
+          <Route path="/add-product" element={<AddProductAdmin />} />
+          <Route path="/add-category" element={<AddCategoryAdmin />} />
           <Route path="/complain" element={<Complain />} />
           <Route path="/complain-admin" element={<ComplainAdmin />} />
 
           <Route path="/detail-product/:id" element={<DetailProduct />} />
-          <Route path="/edit-category/:id" element={<EditCategory />} />
-          <Route path="/edit-product/:id" element={<EditProduct />} />
+          <Route path="/update-category/:id" element={<UpdateCategoryAdmin />} />
+          <Route path="/update-product/:id" element={<UpdateProductAdmin />} />
           <Route path="*" element={<Error />} />
         </Route>
       </Routes>

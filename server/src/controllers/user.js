@@ -73,6 +73,7 @@ exports.getUsers = async (req, res) => {
   }
 };
 
+// get User
 exports.getUser = async (req, res) => {
   try {
     const { id } = req.params;

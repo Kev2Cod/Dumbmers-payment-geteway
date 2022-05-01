@@ -1,13 +1,17 @@
 import React from "react";
 import "../assets/static/css/style.css";
 import "../assets/static/css/complain.css";
-import Chatlist from "../components/chat/Contact";
+import Chatlist from "../components/complain/Contact";
+import Chat from "../components/complain/Chat";
 import { Row, Col } from "react-bootstrap";
-import Chat from "../components/chat/Chat";
+
+import NavbarAdmin from "../components/NavbarAdmin";
 
 const ComplainAdmin = () => {
   return (
+    
     <div className="container-fluid">
+      <NavbarAdmin/>
       <Row>
         <Col className="col-4 border-end-chat d-md-block d-none">
           <Chatlist />

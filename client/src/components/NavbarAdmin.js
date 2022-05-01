@@ -8,6 +8,9 @@ import { useNavigate } from "react-router-dom";
 const Navbar = () => {
   const navigate = useNavigate();
 
+  const [isLogin, setIsLogin] = useState(true);
+  const [showAdmin, setShowAdmin] = useState(true);
+
   const [state, dispatch] = useContext(UserContext);
 
   const logout = () => {
@@ -32,7 +35,7 @@ const Navbar = () => {
               <li className="nav-item">
                 <NavLink
                   className="nav-link fw-bold"
-                  to="/complain"
+                  to="/complain-admin"
                   style={({ isActive }) => ({
                     color: isActive ? "#F74D4D" : "#ffffff",
                   })}
@@ -40,10 +43,23 @@ const Navbar = () => {
                   Complain
                 </NavLink>
               </li>
+
               <li className="nav-item">
                 <NavLink
                   className="nav-link fw-bold"
-                  to="/"
+                  to="/category-admin"
+                  style={({ isActive }) => ({
+                    color: isActive ? "#F74D4D" : "#ffffff",
+                  })}
+                >
+                  Category
+                </NavLink>
+              </li>
+
+              <li className="nav-item">
+                <NavLink
+                  className="nav-link fw-bold"
+                  to="/product-admin"
                   style={({ isActive }) => ({
                     color: isActive ? "#F74D4D" : "#ffffff",
                   })}
@@ -51,17 +67,7 @@ const Navbar = () => {
                   Product
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink
-                  className="nav-link fw-bold"
-                  to="/profile-page"
-                  style={({ isActive }) => ({
-                    color: isActive ? "#F74D4D" : "#ffffff",
-                  })}
-                >
-                  Profile
-                </NavLink>
-              </li>
+
               <li className="nav-item">
                 <NavLink
                   className="nav-link fw-bold"

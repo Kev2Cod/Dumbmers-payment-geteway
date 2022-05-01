@@ -1,21 +1,22 @@
 import React, { useContext } from "react";
 import "../assets/static/css/style.css";
 import "../assets/static/css/complain.css";
-import Chatlist from "../components/chat/Contact";
-import Chat from "../components/chat/Chat";
+import Contact from "../components/complain/Contact";
+import Chat from "../components/complain/Chat";
 import { Row, Col } from "react-bootstrap";
 import { UserContext } from "../context/userContext";
+import Navbar from "../components/Navbar";
 
 const Complain = () => {
-
-  const [state] = useContext(UserContext)
-  console.log(state)
+  const [state] = useContext(UserContext);
+  console.log(state);
 
   return (
     <div className="container-fluid">
+      <Navbar />
       <Row>
         <Col className="col-4 border-end-chat d-md-block d-none">
-          <Chatlist />
+          <Contact />
         </Col>
 
         <Col className="col-md-8 col-12 d-flex align-items-end height-90">
