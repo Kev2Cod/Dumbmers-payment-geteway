@@ -61,7 +61,8 @@ export const Login = () => {
           payload: response.data.data, // data disimpan ke payload
         });
       }
-      if (response.data.data.user.status === "admin") {
+      
+      if (response.data.data.status === "admin") {
         navigate("/complain");
       } else {
         navigate("/");

@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": null,
-    "database": "task_backend_b33",
+    "database": "socket_io_samsul",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },

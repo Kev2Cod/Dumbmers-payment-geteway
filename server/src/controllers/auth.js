@@ -49,7 +49,7 @@ exports.register = async (req, res) => {
     });
 
     // Json Web Token
-    const token = jwt.sign({ id: newUser.id }, process.env.SECRET_KEY);
+    const token = jwt.sign({ id: newUser.id }, process.env.TOKEN_KEY);
 
     res.status(201).send({
       status: "Success",
@@ -122,13 +122,13 @@ exports.login = async (req, res) => {
     }
 
     // Json Web Token
-    const token = jwt.sign({ id: userExist.id }, process.env.SECRET_KEY);
+    const token = jwt.sign({ id: userExist.id }, process.env.TOKEN_KEY);
 
     res.status(200).send({
       status: "Success",
       message: "Berhasil Login",
       data: {
-          name: userExist.name,
+          name: userExist.name, 
           email: userExist.email,
           status: userExist.status,
           profile: userExist.profile,

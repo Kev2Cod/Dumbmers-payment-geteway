@@ -13,7 +13,7 @@ exports.auth = (req, res, next) =>{
         })
     }
     try {
-        const verified = jwt.verify(token, process.env.SECRET_KEY)
+        const verified = jwt.verify(token, process.env.TOKEN_KEY)
         req.user = verified  // ambil data user
         next() // agar setelah diverified, controller dijalankan
     } catch (error) {

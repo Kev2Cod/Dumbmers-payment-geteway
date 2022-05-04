@@ -80,6 +80,9 @@ exports.getUser = async (req, res) => {
 
     const data = await user.findAll({
       where: { id },
+      attributes: {
+        exclude: ["createdAt", "updatedAt", "password"],
+      },
     });
     res.status(200).send({
       status: "Success",

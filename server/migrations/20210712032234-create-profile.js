@@ -17,15 +17,17 @@ module.exports = {
       address: {
         type: Sequelize.STRING,
       },
+      image: {
+        type: Sequelize.STRING,
+      },
       idUser: {
         type: Sequelize.INTEGER,
-        // code here
         references: {
           model: "users",
-          key: "id"
+          key: "id",
         },
         onUpdate: "CASCADE",
-        onDelete: "CASCADE"
+        onDelete: "CASCADE",
       },
       createdAt: {
         allowNull: false,

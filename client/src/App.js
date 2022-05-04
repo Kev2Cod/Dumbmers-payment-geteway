@@ -6,7 +6,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { UserContext } from "./context/userContext";
 
 import Navbar from "./components/Navbar";
-import { Auth, Product, ProfilePage, DetailProduct, CategoryAdmin, ProductAdmin, Complain, ComplainAdmin,AddCategoryAdmin, AddProductAdmin, UpdateCategoryAdmin, UpdateProductAdmin} from "./pages";
+import { Auth, Product, ProfilePage, DetailProduct, CategoryAdmin, ProductAdmin, Complain, ComplainAdmin, AddCategoryAdmin, AddProductAdmin, UpdateCategoryAdmin, UpdateProductAdmin } from "./pages";
 import PrivateRoute from "./components/PrivateRoute";
 import { Error } from "./pages/Error";
 
@@ -36,7 +36,7 @@ function App() {
 
   // Create function for "check user token"
   const checkUser = async () => {
-    try { 
+    try {
       const response = await API.get("/check-auth");
 
       // If the token incorrect

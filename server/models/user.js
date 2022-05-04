@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class user extends Model {
     /**
@@ -12,43 +10,60 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       user.hasOne(models.profile, {
-        as : "profile",
-        foreignKey : {
-          name: "idUser"
-        }
-      })
+        as: "profile",
+        foreignKey: {
+          name: "idUser",
+        },
+      });
 
-      user.hasMany(models.product,{
+      user.hasMany(models.product, {
         as: "product",
         foreignKey: {
-          name: "idUser"
-        }
-      })
+          name: "idUser",
+        },
+      });
 
       user.hasMany(models.transaction, {
-        as:"buyerTransactions",
-        foreignKey:{
-          name: "idBuyer"
-        }
-      })
+        as: "buyerTransactions",
+        foreignKey: {
+          name: "idBuyer",
+        },
+      });
 
       user.hasMany(models.transaction, {
-        as:"sellerTransactions",
-        foreignKey:{
-          name: "idSeller"
-        }
-      })
+        as: "sellerTransactions",
+        foreignKey: {
+          name: "idSeller",
+        },
+      });
 
+      //hasMany association to chat model
+      user.hasMany(models.chat, {
+        as: "senderMessage",
+        foreignKey: {
+          name: "idSender",
+        },
+      });
+
+      user.hasMany(models.chat, {
+        as: "recipientMessage",
+        foreignKey: {
+          name: "idRecipient",
+        },
+      });
     }
-  };
-  user.init({
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    name: DataTypes.STRING,
-    status: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'user',
-  });
+  }
+  user.init(
+    {
+      email: DataTypes.STRING,
+      password: DataTypes.STRING,
+      name: DataTypes.STRING,
+      status: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: "user",
+    }
+  );
   return user;
 };

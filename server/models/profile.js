@@ -8,13 +8,13 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define associatioin here
+      // define association here
       profile.belongsTo(models.user, {
         as: "user",
         foreignKey: {
-          name: "idUser"
-        }
-      })
+          name: "idUser",
+        },
+      });
     }
   }
   profile.init(
@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       phone: DataTypes.STRING,
       gender: DataTypes.STRING,
       address: DataTypes.STRING,
+      image: DataTypes.STRING,
       idUser: DataTypes.INTEGER,
     },
     {
