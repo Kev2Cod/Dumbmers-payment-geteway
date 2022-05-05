@@ -63,25 +63,32 @@ const ProfilePage = () => {
 
             <Col className="col-sm-12 col-md-12 col-lg-5 mb-sm-5 mb-lg-0">
               <h5 className="text-var-red mb-4">My Transaction</h5>
-              <table className="bg-var-dark-gray d-flex rounded">
-                <tbody className="container-fluid">
-                  {transactions?.map((item, index) => (
-                    <tr className="d-flex justify-content-between align-items-center pt-2 pb-2">
-                      <td className="d-flex ">
-                        <img src={item.product.image} className="image-list-product pe-3" />
-                        <div>
-                          <span className="fw-bold text-var-red ">{item.product.name}</span>
-                          <small className="text-var-red d-block mb-3">{item.createdAt}</small>
-                          <span className=" d-inline-block">Price: {item.product.price}</span>
-                        </div>
-                      </td>
-                      <td className="pe-3">
-                        <img src={Icon} className="ms-auto" style={{ width: "70px" }} />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              {transactions?.length > 0 ? (
+                <>
+                  <table className="bg-var-dark-gray d-flex rounded">
+                    <tbody className="container-fluid">
+                      {transactions?.map((item, index) => (
+                        <tr className="d-flex justify-content-between align-items-center pt-2 pb-2">
+                          <td className="d-flex ">
+                            <img src={item.product.image} className="image-list-product pe-3" />
+                            <div>
+                              <span className="fw-bold text-var-red ">{item.product.name}</span>
+                              <small className="text-var-red d-block mb-3">{item.createdAt} WIB</small>
+                              <span className=" d-inline-block">Price: {item.product.price}</span>
+                              <span className=" d-inline-block"> Status: {item.status}</span>
+                            </div>
+                          </td>
+                          <td className="pe-3">
+                            <img src={Icon} className="ms-auto" style={{ width: "70px" }} />
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </>
+              ) : (
+                <div className="text-center">No Transactions</div>
+              )}
             </Col>
           </Row>
         </Container>

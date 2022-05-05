@@ -4,16 +4,16 @@ const router = express.Router();
 
 const { addUser, getUsers, getUser, updateUser, deleteUser } = require("../controllers/user");
 const { getProduct, addProduct, getDetailProduct, updateProduct, deleteProduct } = require("../controllers/product");
-const { getTransaction, buyProduct } = require("../controllers/transaction");
+const { addTransaction, getTransactions, getTransaction, notification } = require("../controllers/transaction");
 const { register, login, checkAuth } = require("../controllers/auth");
 const { auth } = require("../middlewares/auth");
 const { uploadFile } = require("../middlewares/uploadFile");
 const { getCategory, addCategory, deleteCategory, updateCategory, getDetailCategory } = require("../controllers/category");
-const { addProfile } = require("../controllers/profile")
+const { addProfile } = require("../controllers/profile");
 
-// Users 
-router.get('/users', getUsers)
-router.get('/user/:id', getUser)
+// Users
+router.get("/users", getUsers);
+router.get("/user/:id", getUser);
 
 // Products
 router.get("/products", getProduct);
@@ -23,22 +23,27 @@ router.patch("/product/:id", auth, uploadFile("image"), updateProduct);
 router.delete("/product/:id", auth, deleteProduct);
 
 // Categories
-router.get('/categories', auth, getCategory)
-router.get('/category/:id', auth, getDetailCategory)
-router.post('/category', auth, addCategory)
-router.delete('/category/:id', auth, deleteCategory)
-router.patch('/category/:id', auth, updateCategory)
+router.get("/categories", auth, getCategory);
+router.get("/category/:id", auth, getDetailCategory);
+router.post("/category", auth, addCategory);
+router.delete("/category/:id", auth, deleteCategory);
+router.patch("/category/:id", auth, updateCategory);
 
 // Transaction
-router.get("/transactions", auth, getTransaction);
-router.post("/transaction", auth, buyProduct);
+router.get("/transactions", auth, getTransactions);
+router.get("/transaction", auth, getTransaction);
+router.post("/transaction", auth, addTransaction);
 
 // Login & Register
 router.post("/register", register);
 router.post("/login", login);
-router.get("/check-auth/", auth, checkAuth)
+router.get("/check-auth/", auth, checkAuth);
 
 // Profile
-router.post("/profile", auth, addProfile)
+router.post("/profile", auth, addProfile);
+
+// Notification 
+router.post("/notification", notification);
+
 
 module.exports = router;

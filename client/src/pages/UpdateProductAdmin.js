@@ -59,13 +59,13 @@ const UpdateProductAdmin = () => {
     const id = e.target.value;
     const checked = e.target.checked;
  
-    if (checked == true) {
+    if (checked === true) {
       // Save category id if checked
       setCategoryId([...categoryId, parseInt(id)]);
     } else {
       // Delete category id from variable if unchecked
       let newCategoryId = categoryId.filter((categoryIdItem) => {
-        return categoryIdItem != id;
+        return categoryIdItem !== id;
       });
       setCategoryId(newCategoryId);
     }
@@ -147,7 +147,7 @@ const UpdateProductAdmin = () => {
           )}
 
           <div class="mb-3">
-            <input id="upload" type="file" name="image" onChange={handleChange} hidden required />
+            <input id="upload" type="file" name="image" onChange={handleChange} hidden/>
             <label htmlFor="upload" className="btn bg-var-red text-white">
               Upload Image
             </label>

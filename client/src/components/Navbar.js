@@ -54,7 +54,7 @@ const Navbar = () => {
               <li className="nav-item">
                 <NavLink
                   className="nav-link fw-bold"
-                  to="/profile-page"
+                  to="/profile"
                   style={({ isActive }) => ({
                     color: isActive ? "#F74D4D" : "#ffffff",
                   })}

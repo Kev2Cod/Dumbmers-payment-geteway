@@ -78,7 +78,7 @@ function App() {
         <Route path="/" element={<PrivateRoute />}>
           <Route path="/" element={<Product />} />
           <Route path="/auth" element={<Auth />} />
-          <Route path="/profile-page" element={<ProfilePage />} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="/category-admin" element={<CategoryAdmin />} />
           <Route path="/product-admin" element={<ProductAdmin />} />
           <Route path="/add-product" element={<AddProductAdmin />} />

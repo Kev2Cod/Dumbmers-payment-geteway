@@ -191,8 +191,8 @@ exports.updateProduct = async (req, res) => {
     let updateProduct = await product.update(
       {
         ...data,
-        image: req.file.filename,
-        idUser: req.user.id,
+        image: req?.file?.filename,
+        idUser: req?.user?.id,
       },
       { where: { id } }
     );
@@ -201,7 +201,7 @@ exports.updateProduct = async (req, res) => {
 
     updateProduct = {
       ...updateProduct,
-      image: process.env.FILE_PATH + req.file.filename,
+      image: process.env.FILE_PATH + req?.file?.filename,
     };
 
     res.status(200).send({

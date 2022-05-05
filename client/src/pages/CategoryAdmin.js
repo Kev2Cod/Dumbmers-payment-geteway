@@ -45,6 +45,10 @@ const CategoryAdmin = () => {
     navigate("/add-category");
   };
 
+  const handleEdit = (id) => {
+    navigate(`/update-category/${id}`);
+  };
+
   // Create function handle get id product & show modal confirm delete data here ...
   // For get id product & show modal confirm delete data
   const handleDelete = (id) => {
@@ -69,7 +73,7 @@ const CategoryAdmin = () => {
       // Close modal confirm delete data
       handleClose();
       // execute delete data by id function
-      deleteById.mutate(idDelete);
+      deleteById(idDelete);
       setConfirmDelete(null);
     }
   }, [confirmDelete]);
@@ -106,7 +110,14 @@ const CategoryAdmin = () => {
                   </th>
                   <td width="60%">{item.name}</td>
                   <td width="30%">
-                    <Button className="btn bg-var-green text-white fw-bold m-1" variant="success" style={{ width: "6rem" }}>
+                    <Button
+                      onClick={() => {
+                        handleEdit(item.id);
+                      }}
+                      className="btn bg-var-green text-white fw-bold m-1"
+                      variant="success"
+                      style={{ width: "6rem" }}
+                    >
                       Edit
                     </Button>
 
