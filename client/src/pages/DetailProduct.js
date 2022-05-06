@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
