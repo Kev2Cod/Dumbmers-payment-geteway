@@ -131,7 +131,7 @@ exports.addProduct = async (req, res) => {
 
 // ============ GET DETAIL PRODUCT ========
 exports.getDetailProduct = async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.params; 
 
   try {
     let data = await product.findOne({

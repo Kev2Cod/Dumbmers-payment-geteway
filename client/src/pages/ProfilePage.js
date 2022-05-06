@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Image from "../assets/img/profile1.png";
 import Navbar from "../components/Navbar";
+import { useQuery, useMutation } from "react-query";
 
 import Icon from "../assets/img/icon/icon-dumb-merch.png";
 
@@ -13,20 +14,23 @@ const ProfilePage = () => {
   const title = "Profile";
   document.title = "Dumbmers | " + title;
 
-  const [transactions, setTransaction] = useState([]);
-
   const [state] = useContext(UserContext);
 
-  const getTransactios = async () => {
+
+
+  let { isLoading, isError ,data: transactions, refecth, error } = useQuery("transactionCache", async () => {
     const response = await API.get("/transactions");
-    setTransaction(response.data.data);
-  };
+    console.log("Transactions : ",response.data.data)
+    return response.data.data;
+  });
 
-  console.log(transactions);
+  if(isLoading) {
+    return <span>Loading.....</span>
+  }
 
-  useEffect(() => {
-    getTransactios();
-  }, []);
+  if(isError) {
+    return <span>Error: {error.message}</span>
+  }
 
   return (
     <>

@@ -16,7 +16,7 @@ const AddCategoryAdmin = () => {
     setCategory(e.target.value);
   };
 
-  const handleSubmit = useMutation(async (e) => {
+  const handleSubmit = async (e) => {
     try {
       e.preventDefault();
 
@@ -37,14 +37,14 @@ const AddCategoryAdmin = () => {
     } catch (error) {
       console.log(error)
     }
-  });
+  }
 
   return (
     <>
       <NavbarAdmin />
       <div className="container">
         <h3 className="text-start mb-3 mt-5">Add Category</h3>
-        <form onSubmit={(e) => handleSubmit.mutate(e)} style={{ marginTop: "3rem" }}>
+        <form onSubmit={handleSubmit} style={{ marginTop: "3rem" }}>
           <div className="input-group mb-3">
             <input type="text" className="form-control bg-var-dark text-white border-form" onChange={handleChange} value={category} name="category" placeholder="Category" required/>
           </div>

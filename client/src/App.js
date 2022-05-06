@@ -34,6 +34,8 @@ function App() {
     }
   }, [state]);
 
+  console.log(state)
+
   // Create function for "check user token"
   const checkUser = async () => {
     try {

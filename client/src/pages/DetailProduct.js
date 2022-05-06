@@ -88,12 +88,12 @@ const DetailProduct = () => {
         onSuccess: function (result) {
           /* You may add your own implementation here */
           console.log(result);
-          // navigate("/profile");
+          navigate("/profile");
         },
         onPending: function (result) {
           /* You may add your own implementation here */
           console.log(result);
-          // navigate("/profile");
+          navigate("/profile");
         },
         onError: function (result) {
           /* You may add your own implementation here */

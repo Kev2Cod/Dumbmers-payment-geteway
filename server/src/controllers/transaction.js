@@ -122,20 +122,18 @@ exports.getTransaction = async (req, res) => {
 // =========== BUY PRODUCT =============
 exports.addTransaction = async (req, res) => {
   try {
-    let data = req.body;
-    console.log("Data Req Body: ", data);
-
-    data = {
-      id: parseInt(data.idProduct + Math.random().toString().slice(3, 8)), // dijadikan order ID
-      ...data,
-      idBuyer: req.user.id,
-      status: "pending",
-    };
-
-    // insert transaction data
+  // Prepare transaction data from body here ...
+  let data = req.body;
+  data = {
+    id: parseInt(data.idProduct + Math.random().toString().slice(3, 8)),
+    ...data,
+    idBuyer: req.user.id,
+    status: "pending",
+  };
+    // Insert transaction data here ...
     const newData = await transaction.create(data);
 
-    // get buyer data
+    // Get buyer data here ...
     const buyerData = await user.findOne({
       include: {
         model: profile,
@@ -152,28 +150,28 @@ exports.addTransaction = async (req, res) => {
       },
     });
 
-    // Create Snap API
+    // Create Snap API instance 
     let snap = new midtransClient.Snap({
       // Set to true if you want Production Environment (accept real transaction).
       isProduction: false,
       serverKey: process.env.MIDTRANS_SERVER_KEY,
     });
 
-    // Create parameter for Snap API
-    let parameter = {
-      transaction_details: {
-        order_id: newData.id,
-        gross_amount: newData.price,
-      },
-      credit_card: {
-        secure: true,
-      },
-      customer_details: {
-        full_name: buyerData?.name,
-        email: buyerData?.email,
-        phone: buyerData?.profile?.phone,
-      },
-    };
+  // Create parameter for Snap API 
+  let parameter = {
+    transaction_details: {
+      order_id: newData.id,
+      gross_amount: newData.price,
+    },
+    credit_card: {
+      secure: true,
+    },
+    customer_details: {
+      full_name: buyerData?.name,
+      email: buyerData?.email,
+      phone: buyerData?.profile?.phone,
+    },
+  };
 
     // create transaction
     const payment = await snap.createTransaction(parameter);
@@ -214,11 +212,11 @@ core.apiConfig.set({
 //  * @param {string} status
 //  * @param {transactionId} transactionId
 //  */
-
+ 
 // Create function for handle https notification / WebHooks of payment status here ...
 exports.notification = async (req, res) => {
   try {
-    console.log("NOTIFICATION SUDAH DI TRIGERR")
+    console.log("notification", req.body)
     const statusResponse = await core.transaction.notification(req.body);
     const orderId = statusResponse.order_id;
     const transactionStatus = statusResponse.transaction_status;
@@ -261,6 +259,7 @@ exports.notification = async (req, res) => {
   }
 };
 
+// Create function for handle transaction update status
 const updateTransaction = async (status, transactionId) => {
   await transaction.update(
     {
@@ -274,6 +273,7 @@ const updateTransaction = async (status, transactionId) => {
   );
 };
 
+// Create function for handle product update stock/qty
 const updateProduct = async (orderId) => {
   const transactionData = await transaction.findOne({
     where: {
